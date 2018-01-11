@@ -1,18 +1,14 @@
 const participants = ['A', 'B', 'C'];
 
-const output = {};
-
-const drawNames = names => {
-    pickFromBagOfNames(names);
-}
-
 /**
  * Simulates each player picking a name one at a time and rerolling if they get themselves
  */
 const pickFromBagOfNames = players => {
-    const names = [...players];
     let num;
+
     const output = {};
+    const names = [...players];
+
     players.forEach(player => {
         let name = player;
         while(player == name){
@@ -22,11 +18,10 @@ const pickFromBagOfNames = players => {
         output[player] = names[num];
         names.splice(num,1);
     });
-    console.log(output);
+
+    return output;
 }
 
 const getRandomNumber = max => {
     return Math.floor(Math.random()*max);
 }
-
-drawNames(participants);
