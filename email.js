@@ -4,7 +4,7 @@ const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: 'mccullagh.secret.santa@gmail.com',
-    pass: 'secret-santa',
+    pass: '',
   },
 });
 
