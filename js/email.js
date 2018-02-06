@@ -20,7 +20,8 @@ const createMailOptions = (recipient, subject, html) =>
 // TODO: add logger and remove console.log statements
 const sendEmail = (recipient, subject, htmlMessage) => {
   const mailOptions = createMailOptions(recipient, subject, htmlMessage);
-  transporter.sendMail(mailOptions)
+  console.log(transporter);
+  return transporter.sendMail(mailOptions)
     .then((info) => {
       console.log('Successfully sent email to', recipient, 'with subject', subject);
       console.log(info);
