@@ -1,17 +1,18 @@
 const nodemailer = require('nodemailer');
+const config = require('../config/config');
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'mccullagh.secret.santa@gmail.com',
-    pass: '',
+    user: config.sender,
+    pass: config.pass,
   },
 });
 
 // TODO: Check that values passed in are valid
 const createMailOptions = (recipient, subject, html) =>
   ({
-    from: 'mccullagh.secret.santa@gmail.com',
+    from: config.sender,
     to: recipient,
     subject,
     html,
@@ -31,5 +32,7 @@ const sendEmail = (recipient, subject, htmlMessage) => {
       console.log(err);
     });
 };
+
+sendEmail('scott.mccullagh@gmail.com', 'Test message', '');
 
 module.exports.sendEmail = sendEmail;
