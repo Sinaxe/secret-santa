@@ -24,6 +24,7 @@ const pickFromBagOfNames = (players) => {
     * Don't think the controller should deal with how the error is returned to client
     * Handle at route level but return error object?
     */
+    // todo: make error a constant
     return { error: 'Unable to distribute - only one name passed in' };
   }
 

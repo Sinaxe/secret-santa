@@ -4,7 +4,7 @@ const secretsanta = (app) => {
   app.route('/secretsanta')
     .post((req, res) => {
       // payload validation?
-      const secretSantaDistribution = secretSantaController.pickNames(req.body.players);
+      const secretSantaDistribution = secretSantaController(req.body.players);
       res.json(secretSantaDistribution);
     });
 };
