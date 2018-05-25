@@ -8,12 +8,16 @@ const checkResult = (result) => {
   expect(filteredResult.length).to.equal(0);
 };
 
-describe('secret santa', () => {
+describe('secretSantaService', () => {
   let expectedError;
   let result;
-  let players = ['cat', 'badger', 'hedgehog'];
+  let players;
 
   describe('pickNames', () => {
+    beforeEach(() => {
+      players = ['cat', 'badger', 'hedgehog'];
+    });
+
     it('should randomly assign given players so that no one has themselves', () => {
       result = secretSantaService.pickNames(players);
 

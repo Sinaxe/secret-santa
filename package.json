@@ -20,7 +20,7 @@
   },
   "scripts": {
     "test:jest": "jest",
-    "test:mocha": "mocha --recursive mocha-tests"
+    "test:mocha": "mocha mocha-tests --recursive"
   },
   "repository": {
     "type": "git",

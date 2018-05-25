@@ -7,7 +7,7 @@ const secretSantaController = rewire('../../api/controllers/secretSantaControlle
 let secretSantaServiceMock;
 let restore;
 
-describe.only('secretSantaController', () => {
+describe('secretSantaController', () => {
   before(() => {
     secretSantaServiceMock = {
       pickNames: sinon.spy(),
