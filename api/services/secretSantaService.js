@@ -8,13 +8,14 @@ const getAvailablePlayers = (currentPlayer, players, alreadyPicked) => {
 };
 /**
  * Simulates each player picking a name one at a time and rerolling if they get themselves
+ *
+ * Function in now recursive, if the last person has no one to pick we start again
  */
 const pickFromBagOfNames = (players) => {
-  console.log('Running pickFromBag of names with players:', players);
   let num;
   let availablePlayers;
   let playerChosen;
-  const output = [];
+  let output = [];
   const names = [...players];
   const playersPicked = [];
 
@@ -28,22 +29,19 @@ const pickFromBagOfNames = (players) => {
     return { error: 'Unable to distribute - only one name passed in' };
   }
 
-  /** Problem (due to RNG happens like 1 in 10):
-   * - Pass 4 names in
-   * - 1 picks 2
-   * - 2 picks 3
-   * - 3 picks 1
-   * - 4 has no one to pick
-   */
   players.forEach((player) => {
     availablePlayers = getAvailablePlayers(player, players, playersPicked);
-    num = getRandomNumber(availablePlayers.length);
-    playerChosen = availablePlayers[num];
-    playersPicked.push(playerChosen);
-    output.push({ player, playerChosen });
+    if (availablePlayers.length === 0) {
+      console.log('No available players for last person to pick from! Starting again...');
+      output = pickFromBagOfNames(players);
+    } else {
+      num = getRandomNumber(availablePlayers.length);
+      playerChosen = availablePlayers[num];
+      playersPicked.push(playerChosen);
+      output.push({ player, playerChosen });
+    }
   });
 
-  console.log('Players have finished picking, output:', output);
   return output;
 };
 
