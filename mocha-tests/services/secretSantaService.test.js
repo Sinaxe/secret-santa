@@ -31,7 +31,7 @@ describe('secret santa', () => {
     });
 
     // Test to give confidence that the randomness doesnt break things
-    it.only('should return correctly every time when called multiple times', () => {
+    it('should return correctly every time when called multiple times', () => {
       for (let i = 0; i < 25; i += 1) {
         checkResult(secretSantaService.pickNames(players));
       }
