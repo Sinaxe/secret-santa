@@ -20,6 +20,7 @@
   },
   "scripts": {
     "test:jest": "jest",
+    "test:jest-coverage": "jest --coverage",
     "test:mocha": "mocha mocha-tests --recursive"
   },
   "repository": {

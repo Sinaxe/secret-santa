@@ -1,48 +1,80 @@
-const getRandomNumber = max => Math.floor(Math.random() * max);
+const perfectMatchingAlgorithm = (players) => {
+  console.log('Matching players', players.length);
 
-const getAvailablePlayers = (currentPlayer, players, alreadyPicked) => {
-  const availablePlayers = players.filter(availablePlayer => (
-    availablePlayer !== currentPlayer && !alreadyPicked.includes(availablePlayer)
-  ));
-  return availablePlayers;
-};
-/**
- * Simulates each player picking a name one at a time and rerolling if they get themselves
- *
- * Function in now recursive, if the last person has no one to pick we start again
- */
-const pickFromBagOfNames = (players) => {
-  let num;
-  let availablePlayers;
-  let playerChosen;
-  let output = [];
-  const names = [...players];
-  const playersPicked = [];
+  let randomNumber;
+  let selectedConnection;
+  let allConnections = getConnections(players);
 
-  if (names.length === 1) {
-    console.log('Only one player passed in, unable to proceed');
-    /*
-    * Don't think the controller should deal with how the error is returned to client
-    * Handle at route level but return error object?
-    */
-    // todo: make error a constant
-    return { error: 'Unable to distribute - only one name passed in' };
+  let selections = [];
+  let player;
+  while (allConnections.length > 0) {
+    const singleConnections = getSingleConnections(allConnections, players);
+    if (singleConnections.length > 0) {
+      selections = [...selections, ...singleConnections];
+      allConnections = removeSingleConnections(singleConnections, allConnections);
+    }
+    if (allConnections.length > 0) {
+      [{ player }] = allConnections;
+      const playerConnections = getConnectionsForPlayer(allConnections, player);
+      randomNumber = getRandomNumber(playerConnections.length);
+      selectedConnection = playerConnections[randomNumber];
+      selections.push(selectedConnection);
+      allConnections = removeUsedConnection(allConnections, selectedConnection);
+    }
   }
 
+  console.log('selections', selections);
+  return selections;
+};
+
+const removeSingleConnections = (singleConnections, allConnections) => {
+  let connections = allConnections;
+  singleConnections.forEach((singleConnection) => {
+    connections = removeUsedConnection(connections, singleConnection);
+  });
+  return connections;
+};
+
+const getRandomNumber = max => Math.floor(Math.random() * max);
+
+const getConnections = (players) => {
+  let connections = [];
+
   players.forEach((player) => {
-    availablePlayers = getAvailablePlayers(player, players, playersPicked);
-    if (availablePlayers.length === 0) {
-      console.log('No available players for last person to pick from! Starting again...');
-      output = pickFromBagOfNames(players);
-    } else {
-      num = getRandomNumber(availablePlayers.length);
-      playerChosen = availablePlayers[num];
-      playersPicked.push(playerChosen);
-      output.push({ player, playerChosen });
+    const playersCopy = [...players];
+    playersCopy.splice(playersCopy.indexOf(player), 1);
+    const playerConnections = playersCopy.map(connection => ({ player, connection }));
+    connections = [...connections, ...playerConnections];
+  });
+
+  return connections;
+};
+
+const getConnectionsForPlayer = (connections, player) =>
+  connections.filter(connection => connection.player === player);
+
+const removeUsedConnection = (connections, selectedConnection) => {
+  const filteredConnections = connections
+    .filter(connection => connection.player !== selectedConnection.player)
+    .filter(fConnection => fConnection.connection !== selectedConnection.connection);
+  return filteredConnections;
+};
+
+const getSingleConnections = (connections, players) => {
+  const singleConnections = [];
+  let playerConnections;
+  players.forEach((player) => {
+    if (connections.length > 0) {
+      playerConnections = getConnectionsForPlayer(connections, player);
+      if (playerConnections && playerConnections.length === 1) {
+        singleConnections.push(playerConnections[0]);
+      }
     }
   });
 
-  return output;
+  return singleConnections;
 };
 
-exports.pickNames = pickFromBagOfNames;
+module.exports = {
+  getSelections: perfectMatchingAlgorithm,
+};

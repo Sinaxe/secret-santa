@@ -9,4 +9,4 @@ const secretsanta = (app) => {
     });
 };
 
-module.exports = secretsanta;
+exports.secretsanta = secretsanta;
