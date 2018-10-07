@@ -1,12 +1,8 @@
+const express = require('express');
 const secretSantaController = require('../controllers/secretSantaController');
 
-const secretsanta = (app) => {
-  app.route('/secretsanta')
-    .post((req, res) => {
-      // payload validation?
-      const secretSantaDistribution = secretSantaController(req.body.players);
-      res.json(secretSantaDistribution);
-    });
-};
+const router = express.Router();
 
-exports.secretsanta = secretsanta;
+router.post('/', secretSantaController.handleSecretSantaRequest);
+
+module.exports = router;

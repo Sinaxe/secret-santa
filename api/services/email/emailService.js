@@ -1,5 +1,7 @@
 const nodemailer = require('nodemailer');
-const config = require('../config/config');
+const config = require('../../../config/config');
+
+const defaultSubject = 'McCullagh secret santa notification';
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -19,7 +21,7 @@ const createMailOptions = (recipient, subject, html) =>
   });
 
 // TODO: add logger and remove console.log statements
-const sendEmail = (recipient, subject, htmlMessage) => {
+const sendEmail = (recipient, htmlMessage, subject = defaultSubject) => {
   const mailOptions = createMailOptions(recipient, subject, htmlMessage);
   console.log(transporter);
   return transporter.sendMail(mailOptions)
@@ -33,6 +35,6 @@ const sendEmail = (recipient, subject, htmlMessage) => {
     });
 };
 
-sendEmail('scott.mccullagh@gmail.com', 'Test message', '');
-
-module.exports.sendEmail = sendEmail;
+module.exports = {
+  sendEmail,
+};

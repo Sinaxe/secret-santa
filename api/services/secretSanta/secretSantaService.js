@@ -76,5 +76,5 @@ const getSingleConnections = (connections, players) => {
 };
 
 module.exports = {
-  getSelections: perfectMatchingAlgorithm,
+  pickNames: perfectMatchingAlgorithm,
 };

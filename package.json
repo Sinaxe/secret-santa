@@ -15,10 +15,12 @@
     "eslint-plugin-import": "^2.8.0",
     "jest": "^22.0.6",
     "mocha": "^5.0.4",
+    "nodemon": "^1.18.4",
     "rewire": "^3.0.2",
     "sinon": "^4.5.0"
   },
   "scripts": {
+    "start": "nodemon server.js",
     "test:jest": "jest",
     "test:jest-coverage": "jest --coverage",
     "test:mocha": "mocha mocha-tests --recursive"
