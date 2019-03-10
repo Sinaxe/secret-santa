@@ -4,19 +4,20 @@
   "description": "Simple app to make drawing names for secret santa easier.",
   "main": "app.js",
   "dependencies": {
-    "body-parser": "^1.18.2",
-    "express": "^4.16.3",
-    "nodemailer": "^4.4.1"
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "nodemailer": "^4.7.0"
   },
   "devDependencies": {
     "@types/express": "^4.16.1",
     "@types/node": "^11.11.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-import": "^2.16.0",
     "jest": "^22.4.4",
-    "nodemon": "^1.18.4",
-    "typescript": "^3.3.3333"
+    "typescript": "^3.3.3333",
+    "merge": ">=1.2.1",
+    "lodash": ">=4.17.11"
   },
   "scripts": {
     "build": "tsc",
