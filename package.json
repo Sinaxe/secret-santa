@@ -21,6 +21,7 @@
   "scripts": {
     "build": "tsc",
     "start:ts": "npm run build && node dist/server.js",
+    "start:js": "node api/server.js",
     "test:jest": "jest",
     "test:jest-coverage": "jest --coverage"
   },
